@@ -1,0 +1,21 @@
+#ruby code to search tweets!
+#prepare the twitter gem and make client
+require 'twitter'
+client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = "tIWri4KVm1nDG288KPRAYR7WS"
+  config.consumer_secret     = "hWk5j8G6m72RDIUsYk3JmrrgU7v7A29JKqTeZP9Fj2UkDk67Lc"
+  config.access_token        = "4375423587-RBw44ainje1ns3z0l5jPB4oHADvMPC7Fc5B6Bj5"
+  config.access_token_secret = "P9w5Ho7gAbYG0E76bSpKRYIU6VOANEE6xwa1TTxpUtIVz"
+end
+
+#read the key-word to the search
+word = File.open("/home/aluno/Documentos/criar.me/input.txt", "r").read
+
+#search and outputs the result
+client.search(word, result_type: "recent").take(10).each do |tweet|
+  puts tweet.text
+  output = tweet.text
+  out_file = File.open("/home/aluno/Documentos/criar.me/output_ten_tweets.txt", "w")
+  out_file.write(output)
+  out_file.close
+end
